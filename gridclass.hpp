@@ -227,6 +227,26 @@ class bundle
             return parts[index].getsym();
         }
 
+        void offsetx(int newx)
+        {
+            // int oldx = parts[0].getx();
+            // parts[0].setx(newx);
+            for (int i = 0; i < parts.size(); i++)
+            {
+                parts[i].setx(parts[i].getx() + newx);
+            }
+        }
+        void offsety(int newy)
+        {
+            // int oldy = parts[0].gety();
+            // parts[0].sety(newy);
+            for (int i = 0; i < parts.size(); i++)
+            {
+                parts[i].sety(parts[i].gety() + newy);
+            }
+        }
+        
+
         void setallx(int newx)
         {
             for (int i = 0; i < parts.size(); i++)
