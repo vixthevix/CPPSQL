@@ -227,7 +227,7 @@ class bundle
             return parts[index].getsym();
         }
 
-        void offsetx(int newx)
+        void offsetallx(int newx)
         {
             // int oldx = parts[0].getx();
             // parts[0].setx(newx);
@@ -236,7 +236,7 @@ class bundle
                 parts[i].setx(parts[i].getx() + newx);
             }
         }
-        void offsety(int newy)
+        void offsetally(int newy)
         {
             // int oldy = parts[0].gety();
             // parts[0].sety(newy);
@@ -244,6 +244,14 @@ class bundle
             {
                 parts[i].sety(parts[i].gety() + newy);
             }
+        }
+        void offsetx(int index, int newx)
+        {
+            setx(index, getx(index) + newx);
+        }
+        void offsety(int index, int newy)
+        {
+            sety(index, gety(index) + newy);
         }
         
 
@@ -274,6 +282,73 @@ class bundle
             for (int i = 0; i < parts.size(); i++)
             {
                 parts[i].setcolour(colour);
+            }
+        }
+
+        void setrangex(int start, int end, int x)
+        {
+            if (start < 0 || end > parts.size() || start > end)
+            {
+                return;
+            }
+            for (int i = start; i < end; i++)
+            {
+                setx(i, x);
+            }
+        }
+        void setrangey(int start, int end, int y)
+        {
+            if (start < 0 || end > parts.size() || start > end)
+            {
+                return;
+            }
+            for (int i = start; i < end; i++)
+            {
+                sety(i, y);
+            }
+        }
+        void setrangesym(int start, int end, char sym)
+        {
+            if (start < 0 || end > parts.size() || start > end)
+            {
+                return;
+            }
+            for (int i = start; i < end; i++)
+            {
+                setsym(i, sym);
+            }
+        }
+        void setrangecolour(int start, int end, enum Colour colour)
+        {
+            if (start < 0 || end > parts.size() || start > end)
+            {
+                return;
+            }
+            for (int i = start; i < end; i++)
+            {
+                setcolour(i, colour);
+            }
+        }
+        void setoffsetrangex(int start, int end, int x)
+        {
+            if (start < 0 || end > parts.size() || start > end)
+            {
+                return;
+            }
+            for (int i = start; i < end; i++)
+            {
+                offsetx(i, x);
+            }
+        }
+        void setoffsetrangey(int start, int end, int y)
+        {
+            if (start < 0 || end > parts.size() || start > end)
+            {
+                return;
+            }
+            for (int i = start; i < end; i++)
+            {
+                offsety(i, y);
             }
         }
 

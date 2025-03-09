@@ -11,23 +11,8 @@ class titlecontrol
     {
         //printf("yo");
         (*isChoice) = true;
-        (*choice).setcolour(1, YELLOW);
-        (*choice).setcolour(2, YELLOW);
-        (*choice).setcolour(3, YELLOW);
-        (*choice).setcolour(4, YELLOW);
-        (*choice).setcolour(5, YELLOW);
-        (*choice).setcolour(6, YELLOW);
-        (*choice).setcolour(7, YELLOW);
-        (*choice).setcolour(8, YELLOW);
-        (*choice).setcolour(9, YELLOW);
-        (*choice).setcolour(10, YELLOW);
-
-        (*choice).setcolour(12, WHITE);
-        (*choice).setcolour(13, WHITE);
-        (*choice).setcolour(14, WHITE);
-        (*choice).setcolour(15, WHITE);
-        (*choice).setcolour(16, WHITE);
-        (*choice).setcolour(17, WHITE);
+        (*choice).setrangecolour(1, 11, YELLOW);
+        (*choice).setrangecolour(12, 18, WHITE);
 
         //(*choice).setallcolour(RED);
     }
@@ -35,40 +20,40 @@ class titlecontrol
     {   
         //printf("yo");
         (*isChoice) = false;
-        (*choice).setcolour(1, WHITE);
-        (*choice).setcolour(2, WHITE);
-        (*choice).setcolour(3, WHITE);
-        (*choice).setcolour(4, WHITE);
-        (*choice).setcolour(5, WHITE);
-        (*choice).setcolour(6, WHITE);
-        (*choice).setcolour(7, WHITE);
-        (*choice).setcolour(8, WHITE);
-        (*choice).setcolour(9, WHITE);
-        (*choice).setcolour(10, WHITE);
-
-        (*choice).setcolour(12, YELLOW);
-        (*choice).setcolour(13, YELLOW);
-        (*choice).setcolour(14, YELLOW);
-        (*choice).setcolour(15, YELLOW);
-        (*choice).setcolour(16, YELLOW);
-        (*choice).setcolour(17, YELLOW);
+        (*choice).setrangecolour(1, 11, WHITE);
+        (*choice).setrangecolour(12, 18, YELLOW);
     }
-    void moveUp(sbundle (*choice))
+    void moveUp(bool (*isChoice), sbundle (*choice))
     {
         if ((*choice).gety() > 0)
         {
-            (*choice).offsety(-2);
+            (*isChoice) = true;
+            (*choice).offsetally(-2);
+            (*choice).setrangecolour(1, 11, YELLOW);
+            (*choice).setrangecolour(12, 18, WHITE);
+
+
         }
     }
-    void moveDown(sbundle (*choice))
+    void moveDown(bool (*isChoice), sbundle (*choice))
     {
         if ((*choice).gety() < 6)
         {
-            (*choice).offsety(2);
+            (*isChoice) = true;
+            (*choice).offsetally(2);
+
+            (*choice).setrangecolour(1, 11, YELLOW);
+            (*choice).setrangecolour(12, 18, WHITE);
         }
     }
+
+    void makeChoice(bool (*madeChoice))
+    {
+        (*madeChoice) = true;
+    }
+
     public:
-        bool listen(bool (*isChoice), sbundle (*choice))
+        bool listen(bool (*isChoice), bool (*madeChoice), sbundle (*choice))
         {
             bool detected = false;
             if (kbhit())
@@ -85,11 +70,15 @@ class titlecontrol
                         detected = true;
                         break;
                     case 'w':
-                        moveUp(choice);
+                        moveUp(isChoice, choice);
                         detected = true;
                         break;
                     case 's':
-                        moveDown(choice);
+                        moveDown(isChoice, choice);
+                        detected = true;
+                        break;
+                    case ' ':
+                        makeChoice(madeChoice);
                         detected = true;
                         break;
                 }
